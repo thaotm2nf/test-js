@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es5",                         // Biên dịch xuống ES5 để hỗ trợ trình duyệt cũ
+    "module": "es6",                         // Sử dụng module ES6 cho tree-shaking tốt hơn
+    "strict": true,                          // Kích hoạt chế độ kiểm tra lỗi nghiêm ngặt
+    "esModuleInterop": true,                 // Hỗ trợ import/export giữa ES6 và CommonJS
+    "skipLibCheck": true,                    // Bỏ qua kiểm tra type của các thư viện ngoài
+    "forceConsistentCasingInFileNames": true, // Giúp phân biệt rõ chữ hoa chữ thường trong tên file,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+  },
+  "include": [
+    "core/**/*.ts",
+    "core/**/*.ts",
+    "src/*.ts",
+     "src/**/*.ts"
+     ],                // Bao gồm tất cả file .ts trong thư mục src
+  "exclude": ["node_modules"]                // Loại trừ node_modules
+}

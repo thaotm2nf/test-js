@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extract Audio from Video</title>
+</head>
+<body>
+
+<div id="video" controls>
+    <p>Hello Anh Thao</p>
+
+</div>
+
+<button id="extractAudioBtn">Extract Audio</button>
+
+<script>
+    document.getElementById('extractAudioBtn').addEventListener('click', function() {
+        var video = document.getElementById('video');
+
+        if ('captureStream' in video) {
+            var stream = video.captureStream();
+            var recorder = new MediaRecorder(stream);
+            var chunks = [];
+
+            recorder.ondataavailable = function(e) {
+                chunks.push(e.data);
+            };
+
+            recorder.onstop = function() {
+                var blob = new Blob(chunks, { type: 'audio/wav' });
+                var url = URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = 'extracted_audio.wav';
+                a.click();
+            };
+
+            recorder.start();
+            setTimeout(function() {
+                recorder.stop();
+            }, 5000); // Stop recording after 5 seconds (adjust as needed)
+        } else {
+            alert('CaptureStream API is not supported in your browser.');
+        }
+    });
+</script>
+</body>
+</html>

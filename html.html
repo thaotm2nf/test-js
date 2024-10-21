@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<iframe width="420" height="345" src="https://www.youtube.com/embed/XGSy3_Czz8k">
+</iframe>
+
+</iframe>
+
+<script>
+    // Tạo một đối tượng SpeechRecognition
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
+
+    recognition.lang = 'en-US'; // Đặt ngôn ngữ nhận dạng là Tiếng Anh
+    recognition.interimResults = false; // Chỉ trả về kết quả cuối cùng, không trả về kết quả tạm thời
+    recognition.maxAlternatives = 1; // Chỉ trả về một kết quả tốt nhất
+
+    // Hàm xử lý khi có kết quả nhận dạng
+    recognition.onresult = function(event) {
+        const speechResult = event.results[0][0].transcript; // Lấy văn bản từ kết quả nhận dạng
+        console.log('Result: ' + speechResult);
+    };
+
+    // Bắt đầu nhận dạng
+    recognition.start();
+
+    
+    const array = [1,2,3,4,5,]
+
+
+
+
+
+        function test(param){
+        array.forEach((el) => {
+            if(el === 4){
+                console.log(4, el)
+                return
+            }
+
+            if(el === 3){
+                console.log(3, el)
+                return;
+            }
+
+            if(el === 5){
+                console.log(5, el)
+                return;
+            }
+        })
+
+        console.log(23333)
+
+    }
+
+    listResult = [true]
+    const ok = listResult.every((el) => el)
+    console.log(ok, 'ok')
+    test(4)
+    function sit() {
+        this.age = 33
+    }
+
+    function say() {
+
+    }
+
+    say.prototype = new sit()
+
+    console.log(say.prototype.constructor === sit)
+
+    function obj() {
+        this.ahi = 'aji'
+    }
+
+    obj.age = 17
+
+    console.log(obj.age, 'obk')
+
+    function objF() {
+        this.name = '5d'
+    }
+
+    objF.prototype = obj
+
+    const j = new objF()
+
+    console.log(objF.prototype, 'objF')
+    console.log(j.name, 'J')
+</script>
+</body>
+</html>
