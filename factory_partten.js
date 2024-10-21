@@ -1,5 +1,6 @@
 // Factory Pattern: Sử dụng một hàm tạo ra đối tượng để tạo ra các instances của obj
-// mà không cần chỉ định chính xác classname nào sẽ được tạo ra.
+// mà không cần quan tâm đến cách nó đc tạo ra
+
 // Khi cậu cần tạo đối tượng nhưng không muốn ràng buộc với lớp cụ thể nào, hãy nghĩ đến Factory Pattern.
 // Đó là như một cửa hàng nơi cậu chỉ cần miêu tả sản phẩm bạn muốn và cửa hàng sẽ tạo ra nó cho bạn.
 
@@ -51,3 +52,20 @@ var car = carFactory.createVehicle({
 });
 
 console.log(car instanceof Car); // Outputs: true
+class Test {
+    constructor(test) {
+        this.test = test;
+    }
+}
+
+const test = "test2"
+function test2(test) {
+    console.log(test);
+}
+
+function test1(test) {
+   const t = new Test(test)
+   console.log(t);
+}
+
+test1('Test')

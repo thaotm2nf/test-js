@@ -1,7 +1,8 @@
-//Observer Pattern: Cho phép cậu tạo ra các hệ thống theo dõi các sự kiện,
-// trong đó, "observers" đăng ký để lắng nghe và phản ứng với các sự kiện được phát ra bởi "subjects".
-// Nó kết nối publisher và subscribers mà không cần chúng biết về nhau.
-// Giống như một bảng thông báo tự động, bất cứ khi nào có thông tin mới, mọi người đều nhận được tin nhắn.
+//Observer Pattern: Theo dõi sự thay đổi của một đối tượng và phản ứng khi có sự kiện xảy ra sau đó gửi thông báo đến các observer đã đăng ký
+// 2 thành phần: Subject và Observer
+// subject là đối tượng được theo dõi, observer là đối tượng theo dõi subject
+// khi subject thay đổi, observer sẽ phản ứng 
+// . Khi trạng thái của subject thay đổi, nó sẽ thông báo cho tất cả các observer về sự thay đổi này.
 
 function Subject() {
     this.observers = [];
@@ -29,12 +30,13 @@ Subject.prototype = {
 
 const subject = new Subject();
 
-console.log(subject, 's')
+console.log(subject, 'before subscribe')
 
 // log helper
 function observer1() {
     console.log("Observer 1 Firing!");
 }
+
 function observer2() {
     console.log("Observer 2 Firing!");
 }
@@ -46,4 +48,4 @@ subject.fire();
 subject.unsubscribe(observer1);
 subject.fire();
 
-console.log(subject, 'đ')
+console.log(subject, 'after unsubscribe')
