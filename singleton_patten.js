@@ -1,13 +1,18 @@
-//Singleton Pattern: Singleton đảm bảo rằng class chỉ có một instance duy nhất
-// và mọi truy xuất đều thông qua một điểm truy nhập được kiểm soát.
-// Nó như là 'quản lý tòa nhà' - cho dù bạn có thử vài lần đi nữa, bạn luôn nói chuyện với cùng một người đó.
+//Singleton Pattern: Singleton đảm bảo rằng class chỉ có một instance duy nhất trong suốt vòng đời của một app
+// Ex: AngularJS sử dụng singleton pattern để quản lý các service
+// Tạo service: @Injectable({
+//   providedIn: 'root',  // Đây là cách Angular đảm bảo service là Singleton
+// })
+// https://github.com/act-node/act-app/blob/5c0e50b6b8122c8e09ba1d110b736612c18769ba/src/app/services/chat-ai/factory-chat-ai.ts#L20
 
-    var Singleton = (function() {
-    var instance;
+
+const Singleton = (function() {
+    let instance;
     function createInstance() {
-        var object = new Object("I am the instance");
+        const object = new Object("I am the instance");
         return object;
     }
+
     return {
         getInstance: function() {
             if (!instance) {
@@ -17,22 +22,6 @@
         }
     };
 })();
-
-//
-function caculatorFibo(n){
-    if(n==0) return 0;
-    if(n==1) return 1;
-    return caculatorFibo(n-1) + caculatorFibo(n-2);
-}
-
-//Tính tổng n số đầu tiên của dãy số fibonacci
-function calculatorTotalFibo(n) {
-    var total = 0;
-    for (var i = 0; i <= n; i++) {
-        total += caculatorFibo(i);
-    }
-    return total;
-}
 
 
 var instance1 = Singleton.getInstance();
