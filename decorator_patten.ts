@@ -1,6 +1,5 @@
 // pattern Decorator có thể được sử dụng để thêm chức năng vào một đối tượng hiện có mà không làm thay đổi lớp của đối tượng đó.
 // Decorator Pattern giúp mở rộng chức năng của một đối tượng mà không cần phải thay đổi cấu trúc của nó.
-// Decorator Pattern giúp tăng cường chức năng của một đối tượng mà không cần phải thay đổi cấu trúc của nó.
 
 // logic ban đầu có chưc năng gửi email
 // Muốn thêm chức năng ghi log khi gửi email
@@ -8,7 +7,7 @@
 // 1. Thêm phương thức ghi log vào lớp EmailNotifier
 // => không tốt vì lớp EmailNotifier sẽ phải thay đổi, hoặc ảnh hưởng tới những lớp khác sử dụng EmailNotifier ( đôi khi ho không cân ghi log)
 // 2. Tạo ra class mới kế thừa từ EmailNotifier và thêm phương thức ghi log
-// => không tốt vì sẽ phải tạo ra nhiều lớp mới khi muốn thêm chức năng ghi log, ví dụ có 10 chỗ cần thêm chức năng ghi log thì sẽ phải tạo ra 10 lớp mới
+// => không tốt vì sẽ phải tạo ra nhiều lớp mới khi muốn thêm chức năng ghi log, ví dụ có 10 chỗ cần thêm chức năng ghi log thì sẽ phải tạo ra 10 chỗ
 // 3. Sử dụng Decorator Pattern
 // => tốt nhất vì không cần thay đổi lớp ban đầu, không cần tạo ra nhiều lớp mới, chỉ cần tạo ra các lớp decorator mới
 // Chỉ cần gọi phương thức của lớp decorator mới, lớp decorator mới sẽ gọi phương thức của lớp ban đầu và thêm chức năng mới vào

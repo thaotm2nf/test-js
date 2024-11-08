@@ -588,7 +588,109 @@ var _index = require("../core/index");
 var _appModule = require("./app.module");
 (0, _index.platformBrowserDynamic)().bootstrapModule((0, _appModule.AppModule));
 
-},{"./app.module":"22zsV","../core/index":"2Ncl3"}],"22zsV":[function(require,module,exports) {
+},{"../core/index":"2Ncl3","./app.module":"22zsV"}],"2Ncl3":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "platformBrowserDynamic", ()=>platformBrowserDynamic);
+var _module = require("./module");
+class PlatformBrowserDynamic {
+    bootstrapModule(moduleClass) {
+        console.log("Vao main");
+        // init module and render app
+        const moduleInstance = new moduleClass();
+        const metadata = moduleInstance._ngModuleMeta;
+        const appModule = new (0, _module.Module)(metadata.declarations, metadata.imports, metadata.providers, metadata.exports, metadata.bootstrap);
+        console.log(metadata.bootstrap, "metadata.bootstrap");
+        appModule.initializeModule();
+    }
+}
+function platformBrowserDynamic() {
+    return new PlatformBrowserDynamic();
+}
+
+},{"./module":"2ilVx","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2ilVx":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Module", ()=>Module);
+var _provider = require("./provider");
+class Module {
+    constructor(declarations, imports, providers, exports, bootstrap){
+        this.declarations = declarations;
+        this.imports = imports;
+        this.providers = providers;
+        this.exports = exports;
+        this.bootstrap = bootstrap;
+    }
+    initializeModule() {
+        console.log("vao app");
+        // register DI
+        const injector = new (0, _provider.Injector)(this.providers);
+        // init modules import
+        this.imports.forEach((importedModule)=>{
+            importedModule.initializeModule();
+        });
+        console.log(this.bootstrap);
+        if (this.bootstrap) {
+            console.log("vao app component");
+            const componentInstance = new this.bootstrap();
+            console.log(componentInstance, "componentInstance");
+            componentInstance.injector = injector;
+            document.addEventListener("DOMContentLoaded", ()=>{
+                componentInstance.render();
+            });
+        }
+    }
+}
+
+},{"./provider":"3k8pe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3k8pe":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Injector", ()=>Injector);
+class Injector {
+    constructor(providerConfigs){
+        this.providerConfigs = providerConfigs;
+        this.providers = new Map();
+        this.providerConfigs.forEach((providerConfig)=>{
+            const serviceInstance = new providerConfig.useClass();
+            this.providers.set(providerConfig.provide, serviceInstance);
+        });
+    }
+    get(token) {
+        return this.providers.get(token);
+    }
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || Object.prototype.hasOwnProperty.call(dest, key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"22zsV":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "AppModule", ()=>AppModule);
@@ -1168,37 +1270,7 @@ exports.default = {
     __disposeResources: __disposeResources
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, "__esModule", {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === "default" || key === "__esModule" || Object.prototype.hasOwnProperty.call(dest, key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
-
-},{}],"hwPC6":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hwPC6":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "NgModule", ()=>NgModule);
@@ -1223,93 +1295,28 @@ var _decorator = require("../core/decorator");
 class AppComponent {
     constructor(){
         //inject: Injector
-        this.name = "Angular App";
-        console.log("AppComponent initialized");
+        this.name = "Angular App 21";
+        console.log("AppComponent initialized 1");
     }
-    render() {
-        console.log(" vao render app component");
-        const meta = this.constructor.prototype._componentMeta;
+    async render() {
+        console.log(this.constructor.prototype, " vao render app component 1");
+        console.log(this.constructor.prototype.template, "template");
         const rootElement = document.getElementById("root");
-        if (rootElement && meta) rootElement.innerHTML = meta.template.replace("{{ name }}", this.name);
+        const response = await fetch(this.constructor.prototype._componentMeta.template);
+        console.log(this.constructor.prototype._componentMeta.template, "this.constructor.prototype._componentMeta.template");
+        const text = await response.text();
+        this.constructor.prototype.template = text;
+        console.log(text, "text");
+        if (rootElement && this.constructor.prototype.template) rootElement.innerHTML = this.constructor.prototype.template.replace("{{ name }}", this.name);
     }
 }
 AppComponent = (0, _tsDecorate._)([
     (0, _decorator.Component)({
         selector: "app-root",
-        template: `<h1>Hello from {{ name }}!</h1>`
+        template: "./app.component.html"
     })
 ], AppComponent);
 
-},{"@swc/helpers/_/_ts_decorate":"lX6TJ","../core/decorator":"hwPC6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2Ncl3":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "platformBrowserDynamic", ()=>platformBrowserDynamic);
-var _module = require("./module");
-class PlatformBrowserDynamic {
-    bootstrapModule(moduleClass) {
-        console.log("Vao main");
-        // init module and render app
-        const moduleInstance = new moduleClass();
-        const metadata = moduleInstance._ngModuleMeta;
-        const appModule = new (0, _module.Module)(metadata.declarations, metadata.imports, metadata.providers, metadata.exports, metadata.bootstrap);
-        console.log(metadata.bootstrap, "metadata.bootstrap");
-        appModule.initializeModule();
-    }
-}
-function platformBrowserDynamic() {
-    return new PlatformBrowserDynamic();
-}
+},{"@swc/helpers/_/_ts_decorate":"lX6TJ","../core/decorator":"hwPC6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["dZI1r","jeorp"], "jeorp", "parcelRequirea810")
 
-},{"./module":"2ilVx","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2ilVx":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "Module", ()=>Module);
-var _provider = require("./provider");
-class Module {
-    constructor(declarations, imports, providers, exports, bootstrap){
-        this.declarations = declarations;
-        this.imports = imports;
-        this.providers = providers;
-        this.exports = exports;
-        this.bootstrap = bootstrap;
-    }
-    initializeModule() {
-        console.log("vao app");
-        // register DI
-        const injector = new (0, _provider.Injector)(this.providers);
-        // init modules import
-        this.imports.forEach((importedModule)=>{
-            importedModule.initializeModule();
-        });
-        console.log(this.bootstrap);
-        if (this.bootstrap) {
-            console.log("vao app component");
-            const componentInstance = new this.bootstrap();
-            console.log(componentInstance, "componentInstance");
-            componentInstance.injector = injector;
-            componentInstance.render();
-        }
-    }
-}
-
-},{"./provider":"3k8pe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3k8pe":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "Injector", ()=>Injector);
-class Injector {
-    constructor(providerConfigs){
-        this.providerConfigs = providerConfigs;
-        this.providers = new Map();
-        this.providerConfigs.forEach((providerConfig)=>{
-            const serviceInstance = new providerConfig.useClass();
-            this.providers.set(providerConfig.provide, serviceInstance);
-        });
-    }
-    get(token) {
-        return this.providers.get(token);
-    }
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["dZI1r","jeorp"], "jeorp", "parcelRequirea810")
-
-//# sourceMappingURL=main.js.map
+//# sourceMappingURL=index.b7a05eb9.js.map

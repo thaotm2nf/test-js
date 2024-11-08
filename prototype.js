@@ -2,7 +2,8 @@
  * Prototype là một object đặc biệt, chứa tất cả các thuộc tính, phương thức được chia sẻ giữa tất cả các instance của class đó
  * Giải quyết vấn đề kế thừa
  * Nói cách khác: Cho phép các instance của cùng một class có thể dùng chung các thuộc tính, method mà không cần phải sao phép lại cho từng instance
- * Khi define một class, JS sẽ ngầm định tạo ra một prototype cho class đó. Tất cả các instance được thừa hưởng thuộc tính và phương thức từ prototype này
+ * Khi define một class,(Class là một constructor function) class.prototype là object prototype của constructor. 
+ * Tất cả các instance được thừa hưởng thuộc tính và phương thức từ prototype này
  * 
  */
 
@@ -17,11 +18,16 @@ const s = new say()
 
 console.log(say.prototype, 'say')
 console.log(s.age, 's8')
+s.age = 24
+console.log(s.age, 's8')
+
+console.log(say.prototype.age, 'say.prototype.age')
 // Mọi function đều có một prototype. prototype có kiểu là Object (Object prototype)
 say.prototype.name = 'Thaotm'
 
 // Object prototype này tham chiếu đến đối tượng Object.prototype thông qua liên kết [[Prototype]] hay thuộc tính __proto__.
 say.prototype === Object.prototype // Có vẻ sai sai
+console.log(Object.__proto__, 'Object.prototype1')
 s.__proto__ === say.prototype // => s.__proto__.name = say.prototype.name hay s.name = say.prototype.name
 s.__proto__.__proto__ === Object.prototype
 
@@ -33,17 +39,17 @@ s.__proto__.__proto__ === Object.prototype
  * 
  */
 
-class MyClass {
+class MyClass1 {
     greet() {
       console.log("Hello from MyClass!");
     }
   }
   
   // Bản chất constructor của MyClass
-  console.log(MyClass.constructor); // [Function: Function]
+  console.log(MyClass1.constructor); // [Function: Function]
   
   // Kiểm tra prototype của MyClass và prototype của constructor
-  console.log(MyClass.prototype === MyClass.constructor.prototype); // true
+  console.log(MyClass1.prototype === MyClass1.constructor.prototype); // true
 
   /**
    * Điều này có nghĩa là:
@@ -52,7 +58,6 @@ class MyClass {
         constructor.prototype thực chất là chính MyClass.prototype.
         constructor function là một hàm đặc biệt được sử dụng để khởi tạo các đối tượng (instance) từ một class hoặc một hàm. 
         Khi một đối tượng mới được tạo ra từ class hoặc hàm khởi tạo, constructor sẽ được gọi để thiết lập các thuộc tính và thực hiện các thao tác khởi tạo ban đầu cho đối tượng đó.
-
    */
 
         class MyClass {

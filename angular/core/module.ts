@@ -31,7 +31,11 @@ export class Module<TComponent> implements IModule<TComponent> {
 
             componentInstance.injector = injector
 
-            componentInstance.render()
+            document.addEventListener('DOMContentLoaded', () => {
+                componentInstance.render()
+              });
+
+            
 
         }
     

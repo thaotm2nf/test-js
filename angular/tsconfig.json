@@ -8,6 +8,8 @@
     "forceConsistentCasingInFileNames": true, // Giúp phân biệt rõ chữ hoa chữ thường trong tên file,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "moduleResolution": "node",
+
   },
   "include": [
     "core/**/*.ts",
