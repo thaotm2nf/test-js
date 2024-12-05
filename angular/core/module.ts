@@ -33,7 +33,7 @@ export class Module<TComponent> implements IModule<TComponent> {
 
             document.addEventListener('DOMContentLoaded', () => {
                 componentInstance.render()
-              });
+             });
 
             
 

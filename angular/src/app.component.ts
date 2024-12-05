@@ -17,7 +17,6 @@ export class AppComponent implements IComponent {
 
     async render(): Promise<void> {
         const test = new Test()
-
        
         console.log(Test, '333')
         console.log(this.constructor.prototype,' vao render app component 1')
